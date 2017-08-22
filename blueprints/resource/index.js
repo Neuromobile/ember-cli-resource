@@ -3,6 +3,14 @@ var Promise    = require('rsvp').Promise;
 var merge      = require('ember-cli-lodash-subset').merge;
 var inflection = require('inflection');
 
+function addSuffixToRouteName(routeOptions, suffix) {
+  const copyOptions = merge({}, routeOptions);
+
+  copyOptions.entity.name += suffix;
+
+  return copyOptions;
+}
+
 module.exports = {
   description: 'Generates CRUD files.',
 
@@ -70,7 +78,13 @@ module.exports = {
 
     return this._processBlueprint(type, 'model', modelOptions)
               .then(function() {
-                return this._processBlueprint(type, 'route', routeOptions);
+                return Promise.all([
+                  this._processBlueprint(type, 'route', routeOptions),
+                  this._processBlueprint(type, 'route', addSuffixToRouteName(routeOptions, '/index')),
+                  this._processBlueprint(type, 'route', addSuffixToRouteName(routeOptions, '/edit')),
+                  this._processBlueprint(type, 'route', addSuffixToRouteName(routeOptions, '/new')),
+                  this._processBlueprint(type, 'route', addSuffixToRouteName(routeOptions, '/show')),
+                ]);
               }.bind(this));
   },
 };
