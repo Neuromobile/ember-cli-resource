@@ -77,14 +77,27 @@ module.exports = {
     var routeOptions = merge({}, options);
 
     return this._processBlueprint(type, 'model', modelOptions)
-              .then(function() {
-                return Promise.all([
-                  this._processBlueprint(type, 'route', routeOptions),
-                  this._processBlueprint(type, 'route', addSuffixToRouteName(routeOptions, '/index')),
-                  this._processBlueprint(type, 'route', addSuffixToRouteName(routeOptions, '/edit')),
-                  this._processBlueprint(type, 'route', addSuffixToRouteName(routeOptions, '/new')),
-                  this._processBlueprint(type, 'route', addSuffixToRouteName(routeOptions, '/show')),
-                ]);
-              }.bind(this));
+              .then(
+                function() {
+                  return Promise.all([
+                    this._processBlueprint(type, 'route', routeOptions),
+                    this._processBlueprint(type, 'route', addSuffixToRouteName(routeOptions, '/index')),
+                    this._processBlueprint(type, 'route', addSuffixToRouteName(routeOptions, '/edit')),
+                    this._processBlueprint(type, 'route', addSuffixToRouteName(routeOptions, '/new')),
+                    this._processBlueprint(type, 'route', addSuffixToRouteName(routeOptions, '/show')),
+                  ]);
+                }
+                .bind(this)
+              ).then(
+                function() {
+                  return Promise.all([
+                    this._processBlueprint(type, 'controller', routeOptions),
+                    this._processBlueprint(type, 'controller', addSuffixToRouteName(routeOptions, '/index')),
+                    this._processBlueprint(type, 'controller', addSuffixToRouteName(routeOptions, '/edit')),
+                    this._processBlueprint(type, 'controller', addSuffixToRouteName(routeOptions, '/new')),
+                    this._processBlueprint(type, 'controller', addSuffixToRouteName(routeOptions, '/show')),
+                  ]);
+                }.bind(this)
+              );
   },
 };
