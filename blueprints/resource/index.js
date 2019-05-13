@@ -3,10 +3,11 @@ var Promise    = require('rsvp').Promise;
 var merge      = require('ember-cli-lodash-subset').merge;
 var inflection = require('inflection');
 
-function addSuffixToRouteName(routeOptions, suffix) {
+function processRouteName(routeOptions, preffix, suffix) {
   const copyOptions = merge({}, routeOptions);
+  const name = copyOptions.entity.name;
 
-  copyOptions.entity.name += suffix;
+  copyOptions.entity.name = `${preffix}/${name}/${suffix}`;
 
   return copyOptions;
 }
@@ -14,15 +15,23 @@ function addSuffixToRouteName(routeOptions, suffix) {
 module.exports = {
   description: 'Generates CRUD files.',
 
-  install: function(options) {
+  availableOptions: [
+    {
+      name: 'module',
+      type: String,
+      default: '',
+    }
+  ],
+
+  install(options) {
     return this._process('install', options);
   },
 
-  uninstall: function(options) {
+  uninstall(options) {
     return this._process('uninstall', options);
   },
 
-  _processBlueprint: function(type, name, options) {
+  _processBlueprint(type, name, options) {
     var mainBlueprint = this.lookupBlueprint(name);
 
     var that = this;
@@ -51,7 +60,7 @@ module.exports = {
       });
   },
 
-  _findBlueprintBaseClass: function(cls) {
+  _findBlueprintBaseClass(cls) {
     if (cls.constructor && cls.constructor.name === 'Blueprint') {
       return cls.constructor;
     }
@@ -63,10 +72,11 @@ module.exports = {
     return null;
   },
 
-  _process: function(type, options) {
+  _process(type, options) {
     this.ui = options.ui;
     this.project = options.project;
     var entityName = options.entity.name;
+    const moduleName = options.module;
 
     var modelOptions = merge({}, options, {
       entity: {
@@ -81,10 +91,10 @@ module.exports = {
                 function() {
                   return Promise.all([
                     this._processBlueprint(type, 'route', routeOptions),
-                    this._processBlueprint(type, 'route', addSuffixToRouteName(routeOptions, '/index')),
-                    this._processBlueprint(type, 'route', addSuffixToRouteName(routeOptions, '/edit')),
-                    this._processBlueprint(type, 'route', addSuffixToRouteName(routeOptions, '/new')),
-                    this._processBlueprint(type, 'route', addSuffixToRouteName(routeOptions, '/show')),
+                    this._processBlueprint(type, 'route', processRouteName(routeOptions, moduleName, '/index')),
+                    this._processBlueprint(type, 'route', processRouteName(routeOptions, moduleName, '/edit')),
+                    this._processBlueprint(type, 'route', processRouteName(routeOptions, moduleName, '/new')),
+                    this._processBlueprint(type, 'route', processRouteName(routeOptions, moduleName, '/show')),
                   ]);
                 }
                 .bind(this)
@@ -92,10 +102,10 @@ module.exports = {
                 function() {
                   return Promise.all([
                     this._processBlueprint(type, 'controller', routeOptions),
-                    this._processBlueprint(type, 'controller', addSuffixToRouteName(routeOptions, '/index')),
-                    this._processBlueprint(type, 'controller', addSuffixToRouteName(routeOptions, '/edit')),
-                    this._processBlueprint(type, 'controller', addSuffixToRouteName(routeOptions, '/new')),
-                    this._processBlueprint(type, 'controller', addSuffixToRouteName(routeOptions, '/show')),
+                    this._processBlueprint(type, 'controller', processRouteName(routeOptions, moduleName, '/index')),
+                    this._processBlueprint(type, 'controller', processRouteName(routeOptions, moduleName, '/edit')),
+                    this._processBlueprint(type, 'controller', processRouteName(routeOptions, moduleName, '/new')),
+                    this._processBlueprint(type, 'controller', processRouteName(routeOptions, moduleName, '/show')),
                   ]);
                 }.bind(this)
               );
