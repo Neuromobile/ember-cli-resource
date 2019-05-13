@@ -91,10 +91,10 @@ module.exports = {
                 function() {
                   return Promise.all([
                     this._processBlueprint(type, 'route', routeOptions),
-                    this._processBlueprint(type, 'route', processRouteName(routeOptions, moduleName, '/index')),
-                    this._processBlueprint(type, 'route', processRouteName(routeOptions, moduleName, '/edit')),
-                    this._processBlueprint(type, 'route', processRouteName(routeOptions, moduleName, '/new')),
-                    this._processBlueprint(type, 'route', processRouteName(routeOptions, moduleName, '/show')),
+                    this._processBlueprint(type, 'route', processRouteName(routeOptions, moduleName, 'index')),
+                    this._processBlueprint(type, 'route', processRouteName(routeOptions, moduleName, 'edit')),
+                    this._processBlueprint(type, 'route', processRouteName(routeOptions, moduleName, 'new')),
+                    this._processBlueprint(type, 'route', processRouteName(routeOptions, moduleName, 'show')),
                   ]);
                 }
                 .bind(this)
@@ -102,10 +102,10 @@ module.exports = {
                 function() {
                   return Promise.all([
                     this._processBlueprint(type, 'controller', routeOptions),
-                    this._processBlueprint(type, 'controller', processRouteName(routeOptions, moduleName, '/index')),
-                    this._processBlueprint(type, 'controller', processRouteName(routeOptions, moduleName, '/edit')),
-                    this._processBlueprint(type, 'controller', processRouteName(routeOptions, moduleName, '/new')),
-                    this._processBlueprint(type, 'controller', processRouteName(routeOptions, moduleName, '/show')),
+                    this._processBlueprint(type, 'controller', processRouteName(routeOptions, moduleName, 'index')),
+                    this._processBlueprint(type, 'controller', processRouteName(routeOptions, moduleName, 'edit')),
+                    this._processBlueprint(type, 'controller', processRouteName(routeOptions, moduleName, 'new')),
+                    this._processBlueprint(type, 'controller', processRouteName(routeOptions, moduleName, 'show')),
                   ]);
                 }.bind(this)
               );
