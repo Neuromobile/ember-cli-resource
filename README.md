@@ -1,11 +1,11 @@
 # ember-cli-resource
 
-[Short description of the addon.]
+A set of utils and blueprints for creating CRUD resources.
 
 
-* `git clone <repository-url>` this repository
+* `git clone git@github.com:Neuromobile/ember-cli-resource`
 * `cd ember-cli-resource`
-* `npm install`
+* `yarn install`
 
 * Ember.js v2.18 or above
 * Ember CLI v2.13 or above
@@ -15,14 +15,28 @@ Installation
 ------------------------------------------------------------------------------
 
 ```
-ember install my-addon
+ember install ember-cli-resource
 ```
 
 
 Usage
 ------------------------------------------------------------------------------
 
-[Longer description of how to use the addon in apps.]
+* Creating a new resource:
+
+```
+ember g resource <resource_name>
+```
+
+It creates a model called `resource_name` and four routes and controllers:
+* <resource_name>/new
+* <resource_name>/index
+* <resource_name>/edit
+* <resource_name>/show
+
+Options:
+
+* `--module String` - it adds a preffix to the resource in case you need to organize your models in different folders/routes.
 
 
 Contributing
