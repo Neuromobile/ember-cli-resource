@@ -103,8 +103,8 @@ module.exports = {
                   return Promise.all([
                     this._processBlueprint(type, 'controller', routeOptions),
                     this._processBlueprint(type, 'controller-list', processRouteName(routeOptions, moduleName, 'index')),
-                    this._processBlueprint(type, 'controller', processRouteName(routeOptions, moduleName, 'edit')),
-                    this._processBlueprint(type, 'controller', processRouteName(routeOptions, moduleName, 'new')),
+                    this._processBlueprint(type, 'controller-form', processRouteName(routeOptions, moduleName, 'edit')),
+                    this._processBlueprint(type, 'controller-form', processRouteName(routeOptions, moduleName, 'new')),
                     this._processBlueprint(type, 'controller', processRouteName(routeOptions, moduleName, 'show')),
                   ]);
                 }.bind(this)
