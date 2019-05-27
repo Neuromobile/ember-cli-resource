@@ -92,8 +92,8 @@ module.exports = {
                   return Promise.all([
                     this._processBlueprint(type, 'route', routeOptions),
                     this._processBlueprint(type, 'route-list', processRouteName(routeOptions, moduleName, 'index')),
-                    this._processBlueprint(type, 'route', processRouteName(routeOptions, moduleName, 'edit')),
-                    this._processBlueprint(type, 'route', processRouteName(routeOptions, moduleName, 'new')),
+                    this._processBlueprint(type, 'route-form', processRouteName(routeOptions, moduleName, 'edit')),
+                    this._processBlueprint(type, 'route-form', processRouteName(routeOptions, moduleName, 'new')),
                     this._processBlueprint(type, 'route', processRouteName(routeOptions, moduleName, 'show')),
                   ]);
                 }
